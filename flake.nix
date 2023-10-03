@@ -12,7 +12,10 @@
       devShells."${system}".default = pkgs.mkShell
         {
           packages = with pkgs; [
+            age
             argocd
+            kustomize-sops
+            sops
           ];
         };
     };
