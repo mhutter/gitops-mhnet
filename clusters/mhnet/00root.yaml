@@ -13,6 +13,7 @@ spec:
       server: 'https://kubernetes.default.svc'
   sourceRepos:
     - 'https://github.com/mhutter/gitops-mhnet.git'
+    - 'https://kubernetes.github.io/ingress-nginx/'
 
 ---
 apiVersion: argoproj.io/v1alpha1
