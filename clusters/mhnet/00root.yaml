@@ -47,3 +47,7 @@ spec:
     path: clusters/mhnet
     directory:
       recurse: true
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true

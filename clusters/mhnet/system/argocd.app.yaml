@@ -2,7 +2,8 @@ apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
   name: argocd
-  namespace: argocd
+  finalizers:
+    - resources-finalizer.argocd.argoproj.io
 spec:
   project: system
   destination:
@@ -12,3 +13,7 @@ spec:
     repoURL: https://github.com/mhutter/gitops-mhnet.git
     targetRevision: dev
     path: apps/argocd
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
