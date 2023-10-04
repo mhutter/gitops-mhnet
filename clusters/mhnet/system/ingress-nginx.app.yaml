@@ -16,6 +16,12 @@ spec:
     helm:
       valuesObject:
         controller:
+          image:
+            registry: registry-k8s-io.apps.cloudscale-lpg-2.appuio.cloud
+          admissionWebhooks:
+            patch:
+              image:
+                registry: registry-k8s-io.apps.cloudscale-lpg-2.appuio.cloud
           kind: DaemonSet
           service:
             type: ClusterIP
