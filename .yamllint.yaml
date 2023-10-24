@@ -1,0 +1,8 @@
+extends: default
+
+ignore:
+  - apps/argocd/install.yaml
+
+rules:
+  document-start: disable
+  line-length: disable
