@@ -37,6 +37,8 @@ spec:
                 prometheus.io/port: "10254"
 
   syncPolicy:
+    syncOptions:
+      - CreateNamespace=true
     automated:
       prune: true
       selfHeal: true
