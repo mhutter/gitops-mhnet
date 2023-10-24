@@ -4,7 +4,8 @@ metadata:
     name: invidious
 type: Opaque
 stringData:
-    hmac-key: ENC[AES256_GCM,data:mDyQU5X1ClF3OEc8ipFwyiqcvh6DMgJeU4P4F6c121R74pai520Cy6GuXArwqBD5Qbdw0epV6sLfg9JRDKEbXA==,iv:arSnjcnzO/x33YuTaEpNN/Bs9rWjXn38sK9tGuGv96o=,tag:NC54TuaTENMIlngLvfPzzQ==,type:str]
+    INVIDIOUS_HMAC_KEY: ENC[AES256_GCM,data:ky5EdXir0PFYmmKJQ59oqzXDyYQgQ/xyWk+2KvX78HmRV8sRpP9MYYUWFmtsqS2y3tr3ZldWqQS7nMqKL5G1cg==,iv:5VsKoLJ2XK3UcwslhXO35HjXgutBLuacjijgEdPEHGQ=,tag:r/tO7N03NAMc4knMR8HOxA==,type:str]
+    INVIDIOUS_ADMINS: ENC[AES256_GCM,data:R3QVRNZqQSy2q4Y=,iv:RKu7qCVOhEckNWoxRk6HsM2F8bi8kCdREn/Beq89w5k=,tag:cc8HqlmX8HaWqw5YssQMqA==,type:str]
 sops:
     kms: []
     gcp_kms: []
@@ -20,8 +21,8 @@ sops:
             azNRYy9OMi83NnlCZEZmZ2JGbmpuSUUK9xC6AnSBZvjlG2F16I4g979h4S/lIZms
             tk4Ht5W9bq4WNOlWQkaVvUneDqP68ZQCV0dHPooLx2pAs4Ffc4tJ1Q==
             -----END AGE ENCRYPTED FILE-----
-    lastmodified: "2023-10-24T16:11:21Z"
-    mac: ENC[AES256_GCM,data:42iYVe0KpsLs4c8S791jVfUX5GkMNgoHgTidhGdKItq8YRmTzKzesvDwjkvhF5Ky6ogeiow8EejPAC9VpqRA/K1p86rjszyYS39agSxkURml8jDXVfgeNwZm+zV4dhrrEOzdngqEyR/AhIaWaVSAqB5sb2Y5GZoVB8rS0GemG/A=,iv:A865xD0rt9JqX1oN4PkhYA99meGjCq+y57S52doZQMI=,tag:bdTZImRlGnrieau3Z/TrMw==,type:str]
+    lastmodified: "2023-10-24T21:18:13Z"
+    mac: ENC[AES256_GCM,data:evxyT9qNsoswcrS1JeKs1Aj8kWcGEhb0CJwwppOUPyMiTaiqXSLlHQp+wyNdv7H+IcccDuRHs34jRxrDSvzyykiHen18Q2bZ8UUkiiVQs/bG1JM6sztf9cCvSGlopcPh4f9dmQNXqeR3zlZLZO4VAAcDFzG0t+LHPRVLtwGkK5o=,iv:QaoFe3A5Hy6+/x7xWfcXWurRIdRMUiBKFZ/OzVGQ91g=,tag:kl3j7wAr3kwJay5OcrD2FQ==,type:str]
     pgp: []
     unencrypted_regex: ^(apiVersion|kind|metadata|type)$
     version: 3.8.1
