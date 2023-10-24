@@ -1,0 +1,19 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: cert-manager
+  finalizers:
+    - resources-finalizer.argocd.argoproj.io
+spec:
+  project: system
+  destination:
+    namespace: cert-manager
+    server: 'https://kubernetes.default.svc'
+  source:
+    repoURL: https://github.com/mhutter/gitops-mhnet.git
+    targetRevision: main
+    path: apps/cert-manager
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
