@@ -14,3 +14,8 @@ To generate a private key for SOPS:
 age-keygen | kubectl -n argocd create secret generic sops-age --from-file=keys.txt=/dev/stdin
 ```
 
+If you need to edit encrypted secrets, first extract the private key:
+
+```sh
+export SOPS_AGE_KEY="$(kubectl -n argocd get secret/sops-age -o json | jq -r '.data."keys.txt"|@base64d' | grep -v '^#')"
+```
