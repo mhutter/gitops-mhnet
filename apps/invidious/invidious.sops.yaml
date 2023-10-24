@@ -1,0 +1,27 @@
+apiVersion: v1
+kind: Secret
+metadata:
+    name: invidious
+type: Opaque
+stringData:
+    hmac-key: ENC[AES256_GCM,data:mDyQU5X1ClF3OEc8ipFwyiqcvh6DMgJeU4P4F6c121R74pai520Cy6GuXArwqBD5Qbdw0epV6sLfg9JRDKEbXA==,iv:arSnjcnzO/x33YuTaEpNN/Bs9rWjXn38sK9tGuGv96o=,tag:NC54TuaTENMIlngLvfPzzQ==,type:str]
+sops:
+    kms: []
+    gcp_kms: []
+    azure_kv: []
+    hc_vault: []
+    age:
+        - recipient: age1n66zg2y9lpt6p9fkjxt0czf6yyal2r92c9t5h79mfn7gz5jgtq4sp53g8x
+          enc: |
+            -----BEGIN AGE ENCRYPTED FILE-----
+            YWdlLWVuY3J5cHRpb24ub3JnL3YxCi0+IFgyNTUxOSBoMjNJdnFwUVZrYk50UVZE
+            KzhWdURHSDhZQUF0eEpqVnhmdHJvajV6Rm5VCit1a2RVQWdaTThIV3dkU0Q1TEUv
+            VkxwMytvcXAvY1FrMDFsaWkvd01tUW8KLS0tIGRUYlJKR25XcHNpbzRkQU5MQ2FY
+            azNRYy9OMi83NnlCZEZmZ2JGbmpuSUUK9xC6AnSBZvjlG2F16I4g979h4S/lIZms
+            tk4Ht5W9bq4WNOlWQkaVvUneDqP68ZQCV0dHPooLx2pAs4Ffc4tJ1Q==
+            -----END AGE ENCRYPTED FILE-----
+    lastmodified: "2023-10-24T16:11:21Z"
+    mac: ENC[AES256_GCM,data:42iYVe0KpsLs4c8S791jVfUX5GkMNgoHgTidhGdKItq8YRmTzKzesvDwjkvhF5Ky6ogeiow8EejPAC9VpqRA/K1p86rjszyYS39agSxkURml8jDXVfgeNwZm+zV4dhrrEOzdngqEyR/AhIaWaVSAqB5sb2Y5GZoVB8rS0GemG/A=,iv:A865xD0rt9JqX1oN4PkhYA99meGjCq+y57S52doZQMI=,tag:bdTZImRlGnrieau3Z/TrMw==,type:str]
+    pgp: []
+    unencrypted_regex: ^(apiVersion|kind|metadata|type)$
+    version: 3.8.1

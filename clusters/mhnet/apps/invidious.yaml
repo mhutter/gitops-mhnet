@@ -1,0 +1,19 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: invidious
+  finalizers:
+    - resources-finalizer.argocd.argoproj.io
+spec:
+  project: system
+  destination:
+    namespace: invidious
+    server: 'https://kubernetes.default.svc'
+  source:
+    repoURL: https://github.com/mhutter/gitops-mhnet.git
+    targetRevision: main
+    path: apps/invidious
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
