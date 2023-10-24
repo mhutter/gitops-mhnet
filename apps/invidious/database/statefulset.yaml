@@ -40,6 +40,10 @@ spec:
           livenessProbe:
             tcpSocket:
               port: 5432
+          resources:
+            requests:
+              cpu: 10m
+              memory: 32Mi
           securityContext:
             allowPrivilegeEscalation: false
             capabilities:

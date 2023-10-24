@@ -28,6 +28,14 @@ spec:
           livenessProbe:
             tcpSocket:
               port: 3000
+          startupProbe:
+            httpGet:
+              path: /api/v1/comments/jNQXAC9IVRw
+              port: 3000
+            timeoutSeconds: 5
+            successThreshold: 1
+            failureThreshold: 30
+            periodSeconds: 5
           readinessProbe:
             httpGet:
               path: /api/v1/comments/jNQXAC9IVRw
