@@ -14,6 +14,7 @@
           packages = with pkgs; [
             age
             argocd
+            kustomize
             kustomize-sops
             sops
           ];
