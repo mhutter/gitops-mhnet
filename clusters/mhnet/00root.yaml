@@ -14,6 +14,7 @@ spec:
   sourceRepos:
     - 'https://github.com/mhutter/gitops-mhnet.git'
     - 'https://helm.cilium.io/'
+    - 'https://k8up-io.github.io/k8up'
     - 'https://kubernetes.github.io/ingress-nginx/'
 
 ---

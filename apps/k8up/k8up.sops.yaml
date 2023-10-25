@@ -1,0 +1,31 @@
+apiVersion: v1
+kind: Secret
+metadata:
+    name: global-s3-credentials
+type: Opaque
+stringData:
+    endpoint: ENC[AES256_GCM,data:gZsKPZQjWxVU4nwQB+jMM7jpWpe/2Y5o3SThVhyAqIBC0O3zX2YXy5s=,iv:bNYR2KNuC7qdBUydQahp09+O5ic23+Sq7mhdzOjotBk=,tag:+Kn1YS1B2f8SWivdu+DaDA==,type:str]
+    access-key: ENC[AES256_GCM,data:7yizW2KxlpnHIUDicSI4c2tYK0D+yUyAqA==,iv:SL/J+82j/+/GE0ZoaZnSp6DCd3JEsXycxP3tfILkUlk=,tag:g6dEr/wL4eb0KDZzGSfVVA==,type:str]
+    secret-key: ENC[AES256_GCM,data:k9JGMRyASHSLYV6tbkzRBKoH+3EJG2H7lb5VuN2IGg==,iv:q924YAvF/DEprxTG9ko47zHAGHi41GNuiU6u9slcBls=,tag:YFH645HR1YrYlQq0Fh+ABA==,type:str]
+    bucket: ENC[AES256_GCM,data:MZhDifNmhhEefA==,iv:4vBW3P5LJNZlpRPcwcmNg7XKexlm1KG1f/lzJ8BhRfg=,tag:EcQtmz2PPBfqzAuQxJOmgg==,type:str]
+    password: ENC[AES256_GCM,data:rBR631n4uw1XK4zFDwLk57kseq5jsV32zWdj8HUVoL4jTJ6+Am/Gt/IymhxinH87CzNKK8l2qa0nqkWnDCE6Vw==,iv:qXlOwCDjq6FZnu6hlTfoKxHnB2fWDRULrHGTBv6qYFc=,tag:9NzLzgguYbFGl3bHpU9sZQ==,type:str]
+sops:
+    kms: []
+    gcp_kms: []
+    azure_kv: []
+    hc_vault: []
+    age:
+        - recipient: age1n66zg2y9lpt6p9fkjxt0czf6yyal2r92c9t5h79mfn7gz5jgtq4sp53g8x
+          enc: |
+            -----BEGIN AGE ENCRYPTED FILE-----
+            YWdlLWVuY3J5cHRpb24ub3JnL3YxCi0+IFgyNTUxOSA2T0l4YWx5MkFSYnB4L1VD
+            OWUzd21XdVE5aUI0VEpRQTJiTkIra2J0MUJFCkkxUUd0Z2NodlJVaXdzN2J3c0xP
+            dGxnVmtqSjVMUXhaNzBnM3pYZzlZZVEKLS0tIGNxczdLL3liMk80bWVqT0pHSDNV
+            cElGVVRjR2NrT0pJb21FY083a2FOUTAKnlUT+5l1rcgIjKJp9M6Lxk1yiv74uj5Q
+            PznQya2joGnTXh2N3vVfRLSDiM0pkxRMXmPZR0z+VUwYUpmPldfB5Q==
+            -----END AGE ENCRYPTED FILE-----
+    lastmodified: "2023-10-25T10:03:57Z"
+    mac: ENC[AES256_GCM,data:V20YEuI5aWXNGm8gBR551AjJ4+9jWN9bXKPR0CUw/Pl/a/ZKj5tw+cAVitrtacZsnsQZdl99dzK6x3Da/CVgg4atv3nTB5dKgbKWZAUa96rqQnVuJtv27Ra8N2Ac+ve62J/QBxz7Ta8sx0WG9rf+AYq4kw4aZZoYz8YwSAGni7Q=,iv:Wnh/ntEqLoWORtaqwE7QRxVRgtlFFeg5C1EkAG4JtuQ=,tag:twDdcr1+k/OLYjNYmU1PZw==,type:str]
+    pgp: []
+    unencrypted_regex: ^(apiVersion|kind|metadata|type)$
+    version: 3.8.1
