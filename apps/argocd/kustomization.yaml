@@ -7,3 +7,10 @@ resources:
 patches:
   - path: ./install-ksops.patch.yaml
   - path: ./argocd-cm.patch.yaml
+  - patch: |-
+      apiVersion: v1
+      kind: Namespace
+      metadata:
+        name: argocd
+        annotations:
+          scheduler.alpha.kubernetes.io/defaultTolerations: '[{"key":"node-role.kubernetes.io/control-plane","Operator":"Exists"}]'
