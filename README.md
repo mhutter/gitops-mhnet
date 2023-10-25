@@ -6,7 +6,7 @@
 ```sh
 kubectl create namespace argocd
 kubectl -n argocd apply -k ./apps/argocd
-kubectl -n argocd apply - ./clusters/mhnet/00root.yaml
+kubectl -n argocd apply -f ./clusters/mhnet/00root.yaml
 ```
 
 To generate a private key for SOPS:
