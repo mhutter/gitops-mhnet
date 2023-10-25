@@ -1,0 +1,15 @@
+{
+    "apiVersion": "v1",
+    "data": {
+        "keys.txt": "IyBjcmVhdGVkOiAyMDIzLTEwLTI0VDEwOjUxOjQ5KzAyOjAwCiMgcHVibGljIGtleTogYWdlMW42NnpnMnk5bHB0NnA5ZmtqeHQwY3pmNnl5YWwycjkyYzl0NWg3OW1mbjdnejVqZ3RxNHNwNTNnOHgKQUdFLVNFQ1JFVC1LRVktMVY1WFM0SDBRSjNKNFhHVUxUV0xXQVhFUEZLTlc4MDlEOVE0TlVGRlg1SzRFMks1S0E0RlFRR0hSQ0MK"
+    },
+    "kind": "Secret",
+    "metadata": {
+        "creationTimestamp": "2023-10-24T08:51:49Z",
+        "name": "sops-age",
+        "namespace": "argocd",
+        "resourceVersion": "1288",
+        "uid": "23e690ff-f756-4322-9844-8821bb951838"
+    },
+    "type": "Opaque"
+}
