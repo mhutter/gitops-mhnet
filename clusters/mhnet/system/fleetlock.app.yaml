@@ -1,0 +1,19 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: fleetlock
+  finalizers:
+    - resources-finalizer.argocd.argoproj.io
+spec:
+  project: system
+  destination:
+    namespace: fleetlock
+    server: 'https://kubernetes.default.svc'
+  source:
+    repoURL: https://github.com/mhutter/gitops-mhnet.git
+    targetRevision: HEAD
+    path: apps/fleetlock
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
