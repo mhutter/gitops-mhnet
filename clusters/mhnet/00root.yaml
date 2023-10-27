@@ -46,7 +46,7 @@ spec:
     server: 'https://kubernetes.default.svc'
   source:
     repoURL: https://github.com/mhutter/gitops-mhnet.git
-    targetRevision: main
+    targetRevision: HEAD
     path: clusters/mhnet
     directory:
       recurse: true

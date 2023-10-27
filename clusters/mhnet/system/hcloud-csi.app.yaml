@@ -11,7 +11,7 @@ spec:
     server: 'https://kubernetes.default.svc'
   source:
     repoURL: https://github.com/mhutter/gitops-mhnet.git
-    targetRevision: main
+    targetRevision: HEAD
     path: apps/hcloud-csi
   syncPolicy:
     automated:

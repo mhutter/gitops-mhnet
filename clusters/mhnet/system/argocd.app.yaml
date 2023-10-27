@@ -11,13 +11,12 @@ spec:
     server: 'https://kubernetes.default.svc'
   source:
     repoURL: https://github.com/mhutter/gitops-mhnet.git
-    targetRevision: main
+    targetRevision: HEAD
     path: apps/argocd
   syncPolicy:
     automated:
       prune: true
       selfHeal: true
-
 
   # Avoid ArgoCD going "out of sync" when hubble rotates certificates
   # see: https://docs.cilium.io/en/stable/configuration/argocd-issues/
