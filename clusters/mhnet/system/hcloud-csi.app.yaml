@@ -7,7 +7,7 @@ metadata:
 spec:
   project: system
   destination:
-    namespace: kube-system
+    namespace: hcloud-csi
     server: 'https://kubernetes.default.svc'
   source:
     repoURL: https://github.com/mhutter/gitops-mhnet.git
@@ -17,3 +17,5 @@ spec:
     automated:
       prune: true
       selfHeal: true
+    syncOptions:
+      - CreateNamespace=true
