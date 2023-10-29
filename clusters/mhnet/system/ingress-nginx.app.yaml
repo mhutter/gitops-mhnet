@@ -18,12 +18,6 @@ spec:
         controller:
           config:
             use-proxy-protocol: "true"
-          image:
-            registry: registry-k8s-io.apps.cloudscale-lpg-2.appuio.cloud
-          admissionWebhooks:
-            patch:
-              image:
-                registry: registry-k8s-io.apps.cloudscale-lpg-2.appuio.cloud
           kind: DaemonSet
           service:
             type: ClusterIP
