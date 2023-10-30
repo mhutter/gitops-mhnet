@@ -1,0 +1,62 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: kube-prometheus-stack
+  finalizers:
+    - resources-finalizer.argocd.argoproj.io
+spec:
+  project: system
+  destination:
+    namespace: monitoring
+    server: "https://kubernetes.default.svc"
+  source:
+    repoURL: "https://prometheus-community.github.io/helm-charts"
+    chart: kube-prometheus-stack
+    targetRevision: "52.1.0"
+    helm:
+      valuesObject:
+        prometheus:
+          prometheusSpec:
+            retention: 30d
+            storageSpec:
+              volumeClaimTemplate:
+                spec:
+                  accessModes: ["ReadWriteOnce"]
+                  resources:
+                    requests:
+                      storage: 1Gi
+
+        alertmanager:
+          alertmanagerSpec:
+            podAntiAffinity: soft
+
+        grafana:
+          ingress:
+            enabled: true
+            annotations:
+              cert-manager.io/cluster-issuer: letsencrypt-production
+            hosts: ["grafana.mhnet.dev"]
+            tls:
+              - secretName: grafana-ingress-tls
+                hosts: ["grafana.mhnet.dev"]
+          persistence:
+            enabled: true
+
+        prometheusOperator:
+          admissionWebhooks:
+            patch:
+              tolerations:
+                - key: node-role.kubernetes.io/control-plane
+                  operator: Exists
+          tolerations:
+            - key: node-role.kubernetes.io/control-plane
+              operator: Exists
+
+  syncPolicy:
+    syncOptions:
+      - CreateNamespace=true
+      # Required due to huge CRDs
+      - ServerSideApply=true
+    automated:
+      prune: true
+      selfHeal: true
