@@ -1,0 +1,11 @@
+apiVersion: monitoring.coreos.com/v1
+kind: ServiceMonitor
+metadata:
+  name: fleetlock
+spec:
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: fleetlock
+  endpoints:
+    - targetPort: 8080
+      path: /metrics
