@@ -25,6 +25,12 @@ spec:
                   resources:
                     requests:
                       storage: 1Gi
+            # consider ALL prometheus configs on the cluster
+            podMonitorSelectorNilUsesHelmValues: false
+            probeSelectorNilUsesHelmValues: false
+            ruleSelectorNilUsesHelmValues: false
+            scrapeConfigSelectorNilUsesHelmValues: false
+            serviceMonitorSelectorNilUsesHelmValues: false
 
         alertmanager:
           alertmanagerSpec:
