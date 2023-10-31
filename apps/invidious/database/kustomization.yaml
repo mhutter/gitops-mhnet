@@ -6,5 +6,5 @@ commonLabels:
   app.kubernetes.io/component: database
 
 resources:
-  - ./service.yaml
-  - ./statefulset.yaml
+  - service.yaml
+  - statefulset.yaml

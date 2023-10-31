@@ -6,6 +6,7 @@ commonLabels:
   app.kubernetes.io/component: application
 
 resources:
-  - ./service.yaml
-  - ./deployment.yaml
-  - ./ingress.yaml
+  - service.yaml
+  - deployment.yaml
+  - ingress.yaml
+  - secret.json

@@ -3,7 +3,6 @@ kind: ConfigMap
 metadata:
   name: argocd-cm
 data:
-  kustomize.buildOptions: "--enable-alpha-plugins --enable-exec"
   # Prevent ArgoCD removing Cilium CRs
   # see: https://docs.cilium.io/en/stable/configuration/argocd-issues/
   resource.exclusions: |

@@ -1,4 +1,0 @@
-creation_rules:
-  - path_regex: '\.sops\.ya?ml$'
-    unencrypted_regex: '^(apiVersion|kind|metadata|type)$'
-    age: age1n66zg2y9lpt6p9fkjxt0czf6yyal2r92c9t5h79mfn7gz5jgtq4sp53g8x
