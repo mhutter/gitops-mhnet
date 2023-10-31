@@ -15,9 +15,21 @@ kind: PodMonitor
 metadata:
   name: mimir
 spec:
-  jobLabel: app
   selector:
     matchLabels:
       app: mimir
   podMetricsEndpoints:
     - targetPort: 9009
+
+---
+apiVersion: monitoring.coreos.com/v1
+kind: ServiceMonitor
+metadata:
+  name: grafana
+spec:
+  jobLabel: app.kubernetes.io/name
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: grafana
+  endpoints:
+    - targetPort: 3000
