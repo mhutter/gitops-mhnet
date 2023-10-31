@@ -9,10 +9,49 @@ spec:
   destination:
     namespace: monitoring
     server: 'https://kubernetes.default.svc'
-  source:
-    repoURL: https://github.com/mhutter/gitops-mhnet.git
-    targetRevision: HEAD
-    path: apps/monitoring
+  sources:
+    - repoURL: https://github.com/mhutter/gitops-mhnet.git
+      targetRevision: HEAD
+      path: apps/monitoring
+    - repoURL: https://grafana.github.io/helm-charts
+      chart: grafana
+      targetRevision: "7.0.2"
+      helm:
+        releaseName: grafana
+        valuesObject:
+
+          ingress:
+            enabled: true
+            hosts: ["grafana.mhnet.dev"]
+            tls:
+              - hosts: ["grafana.mhnet.dev"]
+                secretName: grafana-ingress-tls
+            annotations:
+              cert-manager.io/cluster-issuer: letsencrypt-production
+
+          initChownData:
+            # not supported with restricte security profile
+            enabled: false
+
+          persistence:
+            enabled: true
+          deploymentStrategy:
+            type: Recreate
+
+          datasources:
+            datasources.yaml:
+              apiVersion: 1
+              datasources:
+                - name: Mimir
+                  type: prometheus
+                  access: proxy
+                  url: "http://mimir.monitoring.svc:9009/prometheus"
+                  isDefault: true
+                  editable: true
+                  jsonData:
+                    httpMethod: POST
+                    prometheusType: Mimir
+
   syncPolicy:
     automated:
       prune: true
