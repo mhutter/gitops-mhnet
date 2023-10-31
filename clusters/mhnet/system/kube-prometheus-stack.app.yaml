@@ -18,6 +18,7 @@ spec:
         # https://github.com/prometheus-community/helm-charts/blob/main/charts/kube-prometheus-stack/README.md
         prometheus:
           prometheusSpec:
+            scrapeInterval: 15s
             retention: 30d
 
             # consider ALL prometheus configs on the cluster
