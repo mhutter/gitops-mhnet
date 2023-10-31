@@ -14,6 +14,7 @@
           packages = with pkgs; [
             age
             argocd
+            kubeseal
             kustomize
             kustomize-sops
             sops
