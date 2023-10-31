@@ -1,30 +1,16 @@
-apiVersion: v1
-kind: ServiceAccount
-metadata:
-  name: prometheus
-
----
-apiVersion: rbac.authorization.k8s.io/v1
-kind: ClusterRoleBinding
-metadata:
-  name: prometheus
-roleRef:
-  apiGroup: rbac.authorization.k8s.io
-  kind: ClusterRole
-  name: prometheus-operator:prometheus
-subjects:
-- kind: ServiceAccount
-  name: prometheus
-
 ---
 apiVersion: monitoring.coreos.com/v1
 kind: Prometheus
 metadata:
-  name: prometheus
+  name: k3s
 spec:
   replicas: 1
   scrapeInterval: 15s
-  externalUrl: http://prometheus.monitoring:9090
+
+  # Push data to Mimir
+  remoteWrite:
+    - name: mimir
+      url: http://mimir:9009/api/v1/push
 
   # Consider ALL configurations
   podMonitorNamespaceSelector: {}
@@ -39,6 +25,8 @@ spec:
   serviceMonitorSelector: {}
 
   enableAdminAPI: false
+
+  serviceAccountName: prometheus
   securityContext:
     fsGroup: 2000
     runAsGroup: 2000
@@ -46,12 +34,10 @@ spec:
     runAsUser: 1000
     seccompProfile:
       type: RuntimeDefault
-  serviceAccountName: prometheus
   storage:
     volumeClaimTemplate:
       spec:
-        accessModes:
-        - ReadWriteOnce
+        accessModes: ["ReadWriteOnce"]
         resources:
           requests:
-            storage: 1Gi
+            storage: 10Gi

@@ -1,0 +1,23 @@
+apiVersion: monitoring.coreos.com/v1alpha1
+kind: ScrapeConfig
+metadata:
+  name: prometheus
+spec:
+  honorLabels: true
+  staticConfigs:
+    - labels:
+        job: prometheus
+      targets: ["localhost:9090"]
+
+---
+apiVersion: monitoring.coreos.com/v1
+kind: PodMonitor
+metadata:
+  name: mimir
+spec:
+  jobLabel: app
+  selector:
+    matchLabels:
+      app: mimir
+  podMetricsEndpoints:
+    - targetPort: 9009

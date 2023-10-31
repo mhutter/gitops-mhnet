@@ -7,4 +7,6 @@ commonLabels:
 
 resources:
   - namespace.yaml
-  - prometheus.yaml
+  - prometheus/
+  - mimir/
+  - monitors.yaml
