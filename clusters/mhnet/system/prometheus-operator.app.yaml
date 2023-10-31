@@ -1,0 +1,23 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: prometheus-operator
+  finalizers:
+    - resources-finalizer.argocd.argoproj.io
+spec:
+  project: system
+  destination:
+    namespace: prometheus-operator
+    server: 'https://kubernetes.default.svc'
+  source:
+    repoURL: https://github.com/mhutter/gitops-mhnet.git
+    targetRevision: HEAD
+    path: apps/prometheus-operator
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+    syncOptions:
+      - CreateNamespace=true
+      # Required due to huge CRD resources
+      - ServerSideApply=true
