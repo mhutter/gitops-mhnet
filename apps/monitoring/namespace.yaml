@@ -1,9 +1,7 @@
 apiVersion: v1
 kind: Namespace
 metadata:
-  name: prometheus-operator
-  annotations:
-    scheduler.alpha.kubernetes.io/defaultTolerations: '[{"key":"node-role.kubernetes.io/control-plane","Operator":"Exists"}]'
+  name: monitoring
   labels:
     pod-security.kubernetes.io/enforce: restricted
     pod-security.kubernetes.io/enforce-version: latest
