@@ -1,0 +1,37 @@
+apiVersion: monitoring.coreos.com/v1
+kind: PodMonitor
+metadata:
+  name: grafana
+spec:
+  selector:
+    matchLabels:
+      app.kubernetes.io/component: grafana
+  jobLabel: app.kubernetes.io/component
+  podMetricsEndpoints:
+    - port: grafana
+
+---
+apiVersion: monitoring.coreos.com/v1
+kind: PodMonitor
+metadata:
+  name: mimir
+spec:
+  selector:
+    matchLabels:
+      app.kubernetes.io/component: mimir
+  jobLabel: app.kubernetes.io/component
+  podMetricsEndpoints:
+    - port: mimir
+
+---
+apiVersion: monitoring.coreos.com/v1
+kind: PodMonitor
+metadata:
+  name: prometheus
+spec:
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: prometheus-agent
+  jobLabel: app.kubernetes.io/name
+  podMetricsEndpoints:
+    - port: web
