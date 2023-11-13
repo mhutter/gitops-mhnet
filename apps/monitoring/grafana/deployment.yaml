@@ -9,8 +9,6 @@ spec:
       port: 3000
       protocol: TCP
       targetPort: grafana
-  selector:
-    app: grafana
 
 ---
 apiVersion: v1
@@ -28,17 +26,11 @@ spec:
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  labels:
-    app: grafana
   name: grafana
 spec:
-  selector:
-    matchLabels:
-      app: grafana
+  strategy:
+    type: Recreate
   template:
-    metadata:
-      labels:
-        app: grafana
     spec:
       containers:
         - name: grafana
