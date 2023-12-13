@@ -1,0 +1,16 @@
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+
+namespace: docspell
+commonLabels:
+  app.kubernetes.io/part-of: docspell
+
+resources:
+  - ./namespace.yaml
+  - ./db-creds.json
+  - ./docspell-secret.json
+  - ./ingress.yaml
+  - ./joex.yaml
+  - ./postgres.yaml
+  - ./restserver.yaml
+  - ./solr.yaml

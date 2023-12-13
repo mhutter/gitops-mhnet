@@ -1,0 +1,93 @@
+# https://kubernetes.io/docs/concepts/services-networking/service/
+apiVersion: v1
+kind: Service
+metadata:
+  name: joex
+  labels:
+    app.kubernetes.io/name: docspell-joex
+    app.kubernetes.io/component: joex
+spec:
+  type: ClusterIP
+  selector:
+    app.kubernetes.io/name: docspell-joex
+    app.kubernetes.io/component: joex
+  ports:
+    - name: rest
+      port: 7878
+
+---
+# https://kubernetes.io/docs/concepts/workloads/controllers/deployment/
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: joex
+  labels:
+    app.kubernetes.io/name: docspell-joex
+    app.kubernetes.io/component: joex
+spec:
+  replicas: 1
+  strategy:
+    type: Recreate
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: docspell-joex
+      app.kubernetes.io/component: joex
+  template:
+    metadata:
+      labels:
+        app.kubernetes.io/name: docspell-joex
+        app.kubernetes.io/component: joex
+    spec:
+      containers:
+        - name: joex
+          image: 'docker.io/docspell/joex:v0.40.0'
+          livenessProbe:
+            tcpSocket:
+              port: 7878
+          readinessProbe:
+            tcpSocket:
+              port: 7878
+          env:
+            - name: TZ
+              value: Europe/Zurich
+            - name: DOCSPELL_JOEX_APP__ID
+              value: joex1
+            - name: DOCSPELL_JOEX_PERIODIC__SCHEDULER_NAME
+              value: joex1
+            - name: DOCSPELL_JOEX_SCHEDULER_NAME
+              value: joex1
+            - name: DOCSPELL_JOEX_BASE__URL
+              value: "http://joex:7878"
+            - name: DOCSPELL_JOEX_BIND_ADDRESS
+              value: "0.0.0.0"
+            - name: DOCSPELL_JOEX_JDBC_URL
+              value: "jdbc:postgresql://postgres:5432/docspell"
+            - name: DOCSPELL_JOEX_JDBC_USER
+              valueFrom:
+                secretKeyRef:
+                  name: db-creds
+                  key: user
+            - name: DOCSPELL_JOEX_JDBC_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: db-creds
+                  key: password
+            - name: DOCSPELL_JOEX_FULL__TEXT__SEARCH_ENABLED
+              value: "true"
+            - name: DOCSPELL_JOEX_FULL__TEXT__SEARCH_SOLR_URL
+              value: "http://solr:8983/solr/docspell"
+            - name: DOCSPELL_JOEX_CONVERT_HTML__CONVERTER
+              value: weasyprint
+          ports:
+            - containerPort: 7878
+          securityContext:
+            allowPrivilegeEscalation: false
+            capabilities:
+              drop: ["ALL"]
+
+      securityContext:
+        runAsNonRoot: true
+        runAsUser: 22313
+        runAsGroup: 22313
+        seccompProfile:
+          type: RuntimeDefault
