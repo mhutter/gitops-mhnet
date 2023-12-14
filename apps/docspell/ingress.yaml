@@ -4,6 +4,7 @@ metadata:
   name: docspell
   annotations:
     cert-manager.io/cluster-issuer: letsencrypt-production
+    nginx.ingress.kubernetes.io/proxy-body-size: 100m
 spec:
   tls:
     - hosts:
