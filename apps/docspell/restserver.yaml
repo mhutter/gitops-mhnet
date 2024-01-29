@@ -38,7 +38,7 @@ spec:
     spec:
       containers:
         - name: restserver
-          image: 'docker.io/docspell/restserver:v0.40.0'
+          image: 'docker.io/docspell/restserver:v0.41.0'
           livenessProbe:
             tcpSocket:
               port: 7880
