@@ -40,7 +40,7 @@ spec:
     spec:
       containers:
         - name: joex
-          image: 'docker.io/docspell/joex:v0.40.0'
+          image: 'docker.io/docspell/joex:v0.41.0'
           livenessProbe:
             tcpSocket:
               port: 7878
