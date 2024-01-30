@@ -26,6 +26,14 @@
       "^apps/.+\\.ya?ml$"
     ]
   },
+  "packageRules": [
+    {
+      "matchPackagePrefixes": [
+        "docker.io/docspell/"
+      ],
+      "groupName": "docspell"
+    }
+  ],
   "customManagers": [
     {
       "customType": "regex",
