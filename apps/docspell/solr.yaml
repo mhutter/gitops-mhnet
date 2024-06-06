@@ -38,7 +38,7 @@ spec:
     spec:
       containers:
         - name: solr
-          image: "docker.io/library/solr:9.4.1-slim"
+          image: "docker.io/library/solr:9.6.1-slim"
           command:
             - docker-entrypoint.sh
             - solr-precreate
