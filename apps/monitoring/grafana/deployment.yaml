@@ -34,7 +34,7 @@ spec:
     spec:
       containers:
         - name: grafana
-          image: "docker.io/grafana/grafana:11.0.1"
+          image: "docker.io/grafana/grafana:11.1.0"
           ports:
             - containerPort: 3000
               name: grafana
