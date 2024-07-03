@@ -32,7 +32,7 @@ spec:
       terminationGracePeriodSeconds: 10
       containers:
         - name: vaultwarden
-          image: "docker.io/vaultwarden/server:1.30.4-alpine"
+          image: "docker.io/vaultwarden/server:1.30.5-alpine"
           ports:
             - containerPort: 8080
               name: http
