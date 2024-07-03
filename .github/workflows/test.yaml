@@ -11,10 +11,13 @@ jobs:
       - uses: actions/checkout@v4
       - uses: frenck/action-yamllint@v1
 
-  kustomize-build:
-    name: kustomize build
+  kubeconform:
+    name: kubeconform
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - run: kustomize build apps/cert-manager
-      - run: kustomize build apps/argocd
+      - name: Validate all 'apps/' with kubeconform
+        run: |
+          eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
+          brew install kubeconform
+          ./script/kubeconform.sh
