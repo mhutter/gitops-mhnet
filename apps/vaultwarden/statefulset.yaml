@@ -1,0 +1,71 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: vaultwarden
+spec:
+  selector:
+    app: vaultwarden
+  type: ClusterIP
+  ports:
+    - name: http
+      protocol: TCP
+      port: 8080
+
+---
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: vaultwarden
+spec:
+  selector:
+    matchLabels:
+      app: vaultwarden
+  serviceName: vaultwarden
+  replicas: 1
+  template:
+    metadata:
+      annotations:
+        kubectl.kubernetes.io/default-container: vaultwarden
+      labels:
+        app: vaultwarden
+    spec:
+      terminationGracePeriodSeconds: 10
+      containers:
+        - name: vaultwarden
+          image: "docker.io/vaultwarden/server:1.30.4-alpine"
+          ports:
+            - containerPort: 8080
+              name: http
+          env:
+            - name: DOMAIN
+              value: "https://pw.mhnet.app"
+            - name: ROCKET_PORT
+              value: "8080"
+            - name: SMTP_FROM_NAME
+              value: mhnet Vaultwarden
+          envFrom:
+            - secretRef:
+                name: vaultwarden-env
+          volumeMounts:
+            - name: data
+              mountPath: /data
+          securityContext:
+            allowPrivilegeEscalation: false
+            capabilities:
+              drop: ["ALL"]
+      securityContext:
+        runAsNonRoot: true
+        runAsUser: 125530
+        runAsGroup: 125530
+        fsGroup: 125530
+        seccompProfile:
+          type: RuntimeDefault
+  volumeClaimTemplates:
+    - metadata:
+        name: data
+      spec:
+        accessModes:
+          - ReadWriteOnce
+        resources:
+          requests:
+            storage: 1Gi
