@@ -3,8 +3,10 @@ kind: Kustomization
 
 namespace: fleetlock
 
-commonLabels:
-  app.kubernetes.io/name: fleetlock
+labels:
+  - includeSelectors: true
+    pairs:
+      app.kubernetes.io/name: fleetlock
 
 resources:
   - namespace.yaml

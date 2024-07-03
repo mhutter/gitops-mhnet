@@ -1,18 +1,18 @@
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
-  name: monitoring
+  name: prometheus-operator
   finalizers:
     - resources-finalizer.argocd.argoproj.io
 spec:
   project: system
   destination:
-    namespace: monitoring
-    server: 'https://kubernetes.default.svc'
+    namespace: prometheus-operator
+    server: "https://kubernetes.default.svc"
   source:
     repoURL: https://github.com/mhutter/gitops-mhnet.git
     targetRevision: HEAD
-    path: apps/monitoring
+    path: apps/prometheus-operator
   syncPolicy:
     automated:
       prune: true

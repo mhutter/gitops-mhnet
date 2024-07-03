@@ -11,32 +11,28 @@ metadata:
 roleRef:
   apiGroup: rbac.authorization.k8s.io
   kind: ClusterRole
-  name: prometheus-operator:prometheus
+  name: "prometheus-operator:prometheus"
 subjects:
   - kind: ServiceAccount
     name: prometheus
 
 ---
-apiVersion: monitoring.coreos.com/v1alpha1
-kind: PrometheusAgent
+apiVersion: monitoring.coreos.com/v1
+kind: Prometheus
 metadata:
   name: k3s
 spec:
   replicas: 1
   scrapeInterval: 15s
-
-  # Push data to Mimir
-  remoteWrite:
-    - name: mimir
-      url: http://mimir:9009/api/v1/push
+  retention: 30d
 
   # Consider ALL configurations
   podMonitorNamespaceSelector: {}
   podMonitorSelector: {}
   probeNamespaceSelector: {}
   probeSelector: {}
-  # ruleNamespaceSelector: {}
-  # ruleSelector: {}
+  ruleNamespaceSelector: {}
+  ruleSelector: {}
   scrapeConfigNamespaceSelector: {}
   scrapeConfigSelector: {}
   serviceMonitorNamespaceSelector: {}
