@@ -61,7 +61,9 @@ spec:
         seccompProfile:
           type: RuntimeDefault
   volumeClaimTemplates:
-    - metadata:
+    - apiVersion: v1
+      kind: PersistentVolumeClaim
+      metadata:
         name: data
       spec:
         accessModes:
