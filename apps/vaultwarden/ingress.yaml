@@ -36,6 +36,13 @@ spec:
                 name: vaultwarden
                 port:
                   name: http
+          - path: /notifications/hub
+            pathType: Exact
+            backend:
+              service:
+                name: bitwarden
+                port:
+                  name: ws
   tls:
     - hosts:
         - pw.mhnet.app

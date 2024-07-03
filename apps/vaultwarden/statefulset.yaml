@@ -36,11 +36,15 @@ spec:
           ports:
             - containerPort: 8080
               name: http
+            - containerPort: 3012
+              name: ws
           env:
             - name: DOMAIN
               value: "https://pw.mhnet.app"
             - name: ROCKET_PORT
               value: "8080"
+            - name: WEBSOCKET_ENABLED
+              value: "true"
             - name: SMTP_FROM_NAME
               value: mhnet Vaultwarden
           envFrom:
