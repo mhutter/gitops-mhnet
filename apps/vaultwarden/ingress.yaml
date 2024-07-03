@@ -16,3 +16,7 @@ spec:
                 name: vaultwarden
                 port:
                   name: http
+  tls:
+    - hosts:
+        - pw.mhnet.app
+      secretName: vaultwarden-ingress-tls
