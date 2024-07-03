@@ -10,6 +10,9 @@ spec:
     - name: http
       protocol: TCP
       port: 8080
+    - name: ws
+      protocol: TCP
+      port: 3012
 
 ---
 apiVersion: apps/v1
