@@ -40,7 +40,7 @@ spec:
             pathType: Exact
             backend:
               service:
-                name: bitwarden
+                name: vaultwarden
                 port:
                   name: ws
   tls:
