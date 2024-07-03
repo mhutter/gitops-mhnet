@@ -8,7 +8,7 @@ spec:
   project: system
   destination:
     namespace: ingress-nginx
-    server: 'https://kubernetes.default.svc'
+    server: "https://kubernetes.default.svc"
   source:
     repoURL: https://kubernetes.github.io/ingress-nginx/
     chart: ingress-nginx
@@ -18,6 +18,7 @@ spec:
         controller:
           config:
             use-proxy-protocol: "true"
+            allow-snippet-annotations: "true"
           kind: DaemonSet
           service:
             type: ClusterIP
