@@ -6,6 +6,7 @@ namespace: monitoring
 resources:
   - namespace.yaml
   - prometheus.yaml
+  - monitors.yaml
 
 labels:
   - includeSelectors: true
