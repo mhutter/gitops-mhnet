@@ -8,7 +8,7 @@ spec:
   project: system
   destination:
     namespace: k8up
-    server: 'https://kubernetes.default.svc'
+    server: "https://kubernetes.default.svc"
   sources:
     - repoURL: https://github.com/mhutter/gitops-mhnet.git
       targetRevision: HEAD
@@ -54,6 +54,7 @@ spec:
   syncPolicy:
     syncOptions:
       - CreateNamespace=true
+      - ServerSideApply=true
     automated:
       prune: true
       selfHeal: true
