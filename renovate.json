@@ -34,6 +34,13 @@
         "https://raw.githubusercontent.com/(?<depName>[^/]+/[^/]+)/(?<currentValue>[^/]+)/"
       ],
       "datasourceTemplate": "github-tags"
+    },
+    {
+      "customType": "regex",
+      "fileMatch": ["(^|/)plan-k3s\\.yaml$"],
+      "matchStrings": ["  version: (?<currentValue>.+)$"],
+      "depNameTemplate": "k3s-io/k3s-upgrade",
+      "datasourceTemplate": "github-tags"
     }
   ]
 }
