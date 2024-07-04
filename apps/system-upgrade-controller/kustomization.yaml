@@ -11,3 +11,4 @@ labels:
 resources:
   - "https://github.com/rancher/system-upgrade-controller/releases/download/v0.13.4/crd.yaml"
   - "https://github.com/rancher/system-upgrade-controller/releases/download/v0.13.4/system-upgrade-controller.yaml"
+  - plan-k3s.yaml
