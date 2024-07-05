@@ -6,16 +6,17 @@ metadata:
   namespace: argocd
 spec:
   clusterResourceWhitelist:
-    - group: '*'
-      kind: '*'
+    - group: "*"
+      kind: "*"
   destinations:
-    - namespace: '*'
-      server: 'https://kubernetes.default.svc'
+    - namespace: "*"
+      server: "https://kubernetes.default.svc"
   sourceRepos:
-    - 'https://github.com/mhutter/gitops-mhnet.git'
-    - 'https://helm.cilium.io/'
-    - 'https://k8up-io.github.io/k8up'
-    - 'https://kubernetes.github.io/ingress-nginx/'
+    - "https://github.com/mhutter/gitops-mhnet.git"
+    - "https://helm.cilium.io/"
+    - "https://k8up-io.github.io/k8up"
+    - "https://kubernetes.github.io/ingress-nginx/"
+    - "https://prometheus-community.github.io/helm-charts"
 
 ---
 apiVersion: argoproj.io/v1alpha1
@@ -25,13 +26,13 @@ metadata:
   namespace: argocd
 spec:
   clusterResourceWhitelist:
-    - group: '*'
-      kind: '*'
+    - group: "*"
+      kind: "*"
   destinations:
-    - namespace: '!kube-system'
-      server: 'https://kubernetes.default.svc'
+    - namespace: "!kube-system"
+      server: "https://kubernetes.default.svc"
   sourceRepos:
-    - 'https://github.com/mhutter/gitops-mhnet.git'
+    - "https://github.com/mhutter/gitops-mhnet.git"
 
 ---
 apiVersion: argoproj.io/v1alpha1
@@ -43,7 +44,7 @@ spec:
   project: system
   destination:
     namespace: argocd
-    server: 'https://kubernetes.default.svc'
+    server: "https://kubernetes.default.svc"
   source:
     repoURL: https://github.com/mhutter/gitops-mhnet.git
     targetRevision: HEAD
