@@ -1,0 +1,103 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: kube-prometheus-stack
+  finalizers:
+    - resources-finalizer.argocd.argoproj.io
+spec:
+  project: system
+  destination:
+    namespace: monitoring
+    server: "https://kubernetes.default.svc"
+  sources:
+    - repoURL: "https://github.com/mhutter/gitops-mhnet.git"
+      targetRevision: HEAD
+      path: apps/kube-prometheus-stack
+    - repoURL: "https://prometheus-community.github.io/helm-charts"
+      chart: kube-prometheus-stack
+      targetRevision: "61.2.0"
+      helm:
+        # https://github.com/prometheus-community/helm-charts/blob/main/charts/kube-prometheus-stack/values.yaml
+        # https://github.com/grafana/helm-charts/blob/main/charts/grafana/values.yaml
+        valuesObject:
+          grafana:
+            # Use admin credentials from existing secret
+            adminUser: null
+            admin:
+              existingSecret: grafana-creds
+              userKey: admin-user
+              passwordKey: admin-password
+            # Grafana Ingress
+            ingress:
+              enabled: true
+              annotations:
+                cert-manager.io/cluster-issuer: letsencrypt-production
+              hosts: ["grafana.mhnet.dev"]
+              tls:
+                - hosts: ["grafana.mhnet.dev"]
+                  secretName: grafana-ingress-tls
+            # Grafana Persistence
+            persistence:
+              enabled: true
+              type: sts
+              accessModes: ["ReadWriteOnce"]
+              size: 1Gi
+            serviceMonitor:
+              # Unset stupid scrapeTimeout (they default it to 30s, which is
+              # incompatible with our scrapeInterval of 15s)
+              scrapeTimeout: ""
+
+          kubeEtcd:
+            # no etcd on k3s
+            enabled: false
+
+          kubeControllerManager:
+            endpoints: ["10.0.0.200"]
+          kubeScheduler:
+            endpoints: ["10.0.0.200"]
+
+          kubeProxy:
+            # kube-proxy is disabled (replaced by cilium)
+            enabled: false
+
+          prometheus:
+            prometheusSpec:
+              replicas: 1
+              scrapeInterval: 15s
+              retention: 30d
+
+              # Another dumbfuckery from kube-prometheus-stack; if you don't
+              # set selectors (e.g. to use ALL CONFIGS they set the helm release
+              # label as the default selector.)
+              podMonitorSelectorNilUsesHelmValues: false
+              probeSelectorNilUsesHelmValues: false
+              ruleSelectorNilUsesHelmValues: false
+              scrapeConfigSelectorNilUsesHelmValues: false
+              serviceMonitorSelectorNilUsesHelmValues: false
+
+              storageSpec:
+                volumeClaimTemplate:
+                  spec:
+                    accessModes: ["ReadWriteOnce"]
+                    resources:
+                      requests:
+                        storage: 10Gi
+
+  ignoreDifferences:
+    # Recent versions of K8s always return `apiVersion` and `kind` fields in
+    # `volumeClaimTemplates`, but our templates don't have them so instead we
+    # just tell ArgoCD to chill.
+    - group: apps
+      kind: StatefulSet
+      name: kube-prometheus-stack-grafana
+      jqPathExpressions:
+        - ".spec.volumeClaimTemplates[].apiVersion"
+        - ".spec.volumeClaimTemplates[].kind"
+
+  syncPolicy:
+    syncOptions:
+      - CreateNamespace=true
+      - ServerSideApply=true
+    automated:
+      prune: true
+      selfHeal: true
