@@ -1,0 +1,19 @@
+ExternalDomain: id.mhnet.app
+ExternalSecure: true
+ExternalPort: 443
+TLS:
+  Enabled: true
+  KeyPath: /run/tls/tls.key
+  CertPath: /run/tls/tls.crt
+
+LogStore:
+  Access:
+    Stdout:
+      Enabled: true
+
+Machine:
+  Identification:
+    Hostname:
+      Enabled: true
+    Webhook:
+      Enabled: false
