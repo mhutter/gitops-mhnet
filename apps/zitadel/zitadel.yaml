@@ -1,0 +1,155 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: zitadel
+spec:
+  selector:
+    app: zitadel
+  type: ClusterIP
+  ports:
+    - name: zitadel
+      protocol: TCP
+      port: 8080
+
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: zitadel
+  labels:
+    app: zitadel
+spec:
+  selector:
+    matchLabels:
+      app: zitadel
+  replicas: 2
+  template:
+    metadata:
+      labels:
+        app: zitadel
+    spec:
+      # prevent service env vars from clashing with config env vars
+      enableServiceLinks: false
+      containers:
+        - name: zitadel
+          image: "ghcr.io/zitadel/zitadel:v2.55.2"
+          imagePullPolicy: IfNotPresent
+          args:
+            - start-from-init
+            - --masterkeyFromEnv
+            - --config
+            - /run/config/zitadel-config.yaml
+          envFrom:
+            - secretRef:
+                name: zitadel-env
+          env:
+            - name: ZITADEL_DATABASE_POSTGRES_HOST
+              valueFrom:
+                secretKeyRef:
+                  name: zitadel-db-app
+                  key: host
+            - name: ZITADEL_DATABASE_POSTGRES_PORT
+              valueFrom:
+                secretKeyRef:
+                  name: zitadel-db-app
+                  key: port
+            - name: ZITADEL_DATABASE_POSTGRES_DATABASE
+              valueFrom:
+                secretKeyRef:
+                  name: zitadel-db-app
+                  key: dbname
+            - name: ZITADEL_DATABASE_POSTGRES_USER_USERNAME
+              valueFrom:
+                secretKeyRef:
+                  name: zitadel-db-app
+                  key: user
+            - name: ZITADEL_DATABASE_POSTGRES_USER_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: zitadel-db-app
+                  key: password
+            - name: ZITADEL_DATABASE_POSTGRES_USER_SSL_MODE
+              value: disable
+            - name: ZITADEL_DATABASE_POSTGRES_ADMIN_USERNAME
+              valueFrom:
+                secretKeyRef:
+                  name: zitadel-db-superuser
+                  key: user
+            - name: ZITADEL_DATABASE_POSTGRES_ADMIN_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: zitadel-db-superuser
+                  key: password
+            - name: ZITADEL_DATABASE_POSTGRES_ADMIN_SSL_MODE
+              value: disable
+            - name: ZITADEL_DATABASE_POSTGRES_ADMIN_EXISTINGDATABASE
+              value: postgres
+          volumeMounts:
+            - name: config
+              mountPath: /run/config
+              readOnly: true
+            - name: tls
+              mountPath: /run/tls
+              readOnly: true
+          livenessProbe:
+            httpGet:
+              path: /debug/healthz
+              port: 8080
+              scheme: HTTPS
+            initialDelaySeconds: 0
+            periodSeconds: 5
+            failureThreshold: 3
+          readinessProbe:
+            httpGet:
+              path: /debug/ready
+              port: 8080
+              scheme: HTTPS
+            initialDelaySeconds: 0
+            periodSeconds: 5
+            failureThreshold: 3
+          startupProbe:
+            httpGet:
+              path: /debug/ready
+              port: 8080
+              scheme: HTTPS
+            periodSeconds: 1
+            failureThreshold: 300
+          securityContext:
+            allowPrivilegeEscalation: false
+            capabilities:
+              drop: ["ALL"]
+      securityContext:
+        runAsNonRoot: true
+        runAsUser: 11024
+        runAsGroup: 11024
+        fsGroup: 11024
+        seccompProfile:
+          type: RuntimeDefault
+      volumes:
+        - name: tls
+          secret:
+            secretName: zitadel-ingress-tls
+        - name: config
+          configMap:
+            name: zitadel-config
+      affinity:
+        podAntiAffinity:
+          requiredDuringSchedulingIgnoredDuringExecution:
+            - labelSelector:
+                matchExpressions:
+                  - key: app
+                    operator: In
+                    values:
+                      - zitadel
+              topologyKey: kubernetes.io/hostname
+
+---
+apiVersion: policy/v1
+kind: PodDisruptionBudget
+metadata:
+  name: zitadel
+spec:
+  maxUnavailable: 1
+  selector:
+    matchLabels:
+      app: zitadel
