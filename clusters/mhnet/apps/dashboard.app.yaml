@@ -1,0 +1,35 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: kubernetes-dashboard
+  namespace: argocd
+  finalizers:
+    - resources-finalizer.argocd.argoproj.io
+spec:
+  project: apps
+  destination:
+    namespace: kubernetes-dashboard
+    server: "https://kubernetes.default.svc"
+  source:
+    repoURL: "https://kubernetes.github.io/dashboard/"
+    chart: kubernetes-dashboard
+    targetRevision: "7.2.0"
+    helm:
+      valuesObject:
+        app:
+          ingress:
+            enabled: true
+            hosts: ["dashboard.mhnet.dev"]
+            useDefaultIngressClass: true
+            issuer:
+              name: letsencrypt-production
+              scope: cluster
+            tls:
+              secretName: dashboard-ingress-tls
+
+  syncPolicy:
+    syncOptions:
+      - CreateNamespace=true
+    automated:
+      prune: true
+      selfHeal: true
