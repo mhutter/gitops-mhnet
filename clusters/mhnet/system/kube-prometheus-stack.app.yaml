@@ -23,10 +23,6 @@ spec:
           grafana:
             # Use admin credentials from existing secret
             adminUser: null
-            admin:
-              existingSecret: grafana-creds
-              userKey: admin-user
-              passwordKey: admin-password
             # Grafana Configuration
             envFromSecret: grafana-env
             grafana.ini:
