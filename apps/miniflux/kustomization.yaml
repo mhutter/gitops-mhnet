@@ -9,8 +9,8 @@ labels:
       app.kubernetes.io/part-of: miniflux
 
 resources:
-  - namespace.yaml
-  - secret.json
-  - database.yaml
-  - miniflux.yaml
-  - ingress.yaml
+  - ./namespace.yaml
+  - ./miniflux-env.sealed-secret.json
+  - ./database.yaml
+  - ./miniflux.yaml
+  - ./ingress.yaml

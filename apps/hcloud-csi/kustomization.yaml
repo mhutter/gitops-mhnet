@@ -10,7 +10,7 @@ labels:
 
 resources:
   - "https://raw.githubusercontent.com/hetznercloud/csi-driver/v2.8.0/deploy/kubernetes/hcloud-csi.yml"
-  - secret.json
+  - ./hcloud.sealed-secret.json
 
 patches:
   - patch: |-

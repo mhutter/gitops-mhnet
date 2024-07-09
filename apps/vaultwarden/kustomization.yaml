@@ -10,6 +10,6 @@ labels:
 
 resources:
   - namespace.yaml
-  - secret.json
+  - vaultwarden-env.sealed-secret.json
   - statefulset.yaml
   - ingress.yaml
