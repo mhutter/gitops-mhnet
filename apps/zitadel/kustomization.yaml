@@ -11,7 +11,6 @@ labels:
 resources:
   - namespace.yaml
   - zitadel-env.sealed-secret.json
-  - database.yaml
   - zitadel.yaml
   - ingress.yaml
 
