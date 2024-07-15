@@ -35,7 +35,7 @@ spec:
           image: "ghcr.io/zitadel/zitadel:v2.56.0"
           imagePullPolicy: IfNotPresent
           args:
-            - start-from-init
+            - start-from-setup
             - --masterkeyFromEnv
             - --config
             - /run/config/zitadel-config.yaml
