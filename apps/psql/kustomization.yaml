@@ -1,0 +1,13 @@
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+
+namespace: psql
+
+labels:
+  - includeSelectors: true
+    pairs:
+      app.kubernetes.io/name: psql
+
+resources:
+  - namespace.yaml
+  - database.yaml

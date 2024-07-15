@@ -1,0 +1,15 @@
+apiVersion: postgresql.cnpg.io/v1
+kind: Cluster
+metadata:
+  name: shared
+spec:
+  instances: 3
+  imageName: "ghcr.io/cloudnative-pg/postgresql:16.3"
+  enableSuperuserAccess: true
+  managed:
+    roles: []
+
+  storage:
+    size: 10Gi
+  monitoring:
+    enablePodMonitor: true
