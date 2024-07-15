@@ -1,0 +1,19 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: psql
+  finalizers:
+    - resources-finalizer.argocd.argoproj.io
+spec:
+  project: apps
+  destination:
+    namespace: psql
+    server: "https://kubernetes.default.svc"
+  source:
+    repoURL: "https://github.com/mhutter/gitops-mhnet.git"
+    targetRevision: HEAD
+    path: apps/psql
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true

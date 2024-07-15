@@ -49,11 +49,6 @@ spec:
               value: "https://feeds.mhnet.app/oauth2/oidc/callback"
             - name: OAUTH2_USER_CREATION
               value: "1"
-            - name: DATABASE_URL
-              valueFrom:
-                secretKeyRef:
-                  name: miniflux-db-app
-                  key: uri
             - name: RUN_MIGRATIONS
               value: "1"
           securityContext:
