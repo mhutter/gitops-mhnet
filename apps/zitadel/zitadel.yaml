@@ -42,48 +42,6 @@ spec:
           envFrom:
             - secretRef:
                 name: zitadel-env
-          env:
-            - name: ZITADEL_DATABASE_POSTGRES_HOST
-              valueFrom:
-                secretKeyRef:
-                  name: zitadel-db-app
-                  key: host
-            - name: ZITADEL_DATABASE_POSTGRES_PORT
-              valueFrom:
-                secretKeyRef:
-                  name: zitadel-db-app
-                  key: port
-            - name: ZITADEL_DATABASE_POSTGRES_DATABASE
-              valueFrom:
-                secretKeyRef:
-                  name: zitadel-db-app
-                  key: dbname
-            - name: ZITADEL_DATABASE_POSTGRES_USER_USERNAME
-              valueFrom:
-                secretKeyRef:
-                  name: zitadel-db-app
-                  key: user
-            - name: ZITADEL_DATABASE_POSTGRES_USER_PASSWORD
-              valueFrom:
-                secretKeyRef:
-                  name: zitadel-db-app
-                  key: password
-            - name: ZITADEL_DATABASE_POSTGRES_USER_SSL_MODE
-              value: disable
-            - name: ZITADEL_DATABASE_POSTGRES_ADMIN_USERNAME
-              valueFrom:
-                secretKeyRef:
-                  name: zitadel-db-superuser
-                  key: user
-            - name: ZITADEL_DATABASE_POSTGRES_ADMIN_PASSWORD
-              valueFrom:
-                secretKeyRef:
-                  name: zitadel-db-superuser
-                  key: password
-            - name: ZITADEL_DATABASE_POSTGRES_ADMIN_SSL_MODE
-              value: disable
-            - name: ZITADEL_DATABASE_POSTGRES_ADMIN_EXISTINGDATABASE
-              value: postgres
           volumeMounts:
             - name: config
               mountPath: /run/config
