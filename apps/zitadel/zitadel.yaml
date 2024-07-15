@@ -19,10 +19,11 @@ metadata:
   labels:
     app: zitadel
 spec:
+  replicas: 2
+  revisionHistoryLimit: 2
   selector:
     matchLabels:
       app: zitadel
-  replicas: 2
   template:
     metadata:
       labels:
