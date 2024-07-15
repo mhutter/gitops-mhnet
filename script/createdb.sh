@@ -9,13 +9,8 @@ CLUSTER="shared"
 name="$1"
 password="$(pwgen -cns 64 1)"
 
-kubectl -n "$NS" exec -c postgres "${CLUSTER}-1" -- psql --command "CREATE DATABASE ${name};"
-
-kubectl -n "$NS" exec -c postgres "${CLUSTER}-1" -- psql --single-transaction <<EOT
-CREATE USER $name WITH ENCRYPTED PASSWORD '$password';
-GRANT ALL PRIVILEGES ON DATABASE $name TO $name;
-GRANT ALL PRIVILEGES ON ALL TABLES IN SCHEMA public TO $name;
-EOT
+kubectl -n "$NS" exec -c postgres "${CLUSTER}-1" -- psql --command "CREATE USER ${name} WITH ENCRYPTED PASSWORD '$password';"
+kubectl -n "$NS" exec -c postgres "${CLUSTER}-1" -- psql --command "CREATE DATABASE ${name} OWNER ${name};"
 
 echo "Created new database"
 echo
