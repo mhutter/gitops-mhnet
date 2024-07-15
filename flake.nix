@@ -15,6 +15,7 @@
             age
             argocd
             kubeconform
+            kubectl-cnpg
             kubeseal
             kustomize
             kustomize-sops

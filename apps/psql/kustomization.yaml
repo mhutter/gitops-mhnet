@@ -7,7 +7,10 @@ labels:
   - includeSelectors: true
     pairs:
       app.kubernetes.io/name: psql
+  - pairs:
+      app.kubernetes.io/instance: psql
 
 resources:
   - namespace.yaml
+  - barman-s3-creds.sealed-secret.json
   - database.yaml
