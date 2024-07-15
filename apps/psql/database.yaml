@@ -6,10 +6,37 @@ spec:
   instances: 3
   imageName: "ghcr.io/cloudnative-pg/postgresql:16.3"
   enableSuperuserAccess: true
-  managed:
-    roles: []
+  managed: {}
 
   storage:
     size: 10Gi
   monitoring:
     enablePodMonitor: true
+
+  backup:
+    retentionPolicy: 30d
+    barmanObjectStore:
+      endpointURL: "https://s3.eu-central-003.backblazeb2.com"
+      destinationPath: "s3://mhnet-psql-shared/"
+      s3Credentials:
+        accessKeyId:
+          name: barman-s3-creds
+          key: accessKeyId
+        secretAccessKey:
+          name: barman-s3-creds
+          key: secretAccessKey
+      wal:
+        compression: gzip
+      data:
+        compression: gzip
+
+---
+apiVersion: postgresql.cnpg.io/v1
+kind: ScheduledBackup
+metadata:
+  name: daily
+spec:
+  schedule: "0 32 2 * * *"
+  immediate: true
+  cluster:
+    name: shared
