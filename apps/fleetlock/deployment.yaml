@@ -28,7 +28,7 @@ spec:
               containerPort: 8080
           resources:
             requests:
-              memory: 5Mi
+              memory: 8Mi
           livenessProbe:
             httpGet:
               scheme: HTTP

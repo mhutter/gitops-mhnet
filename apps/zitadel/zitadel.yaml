@@ -50,6 +50,9 @@ spec:
             - name: tls
               mountPath: /run/tls
               readOnly: true
+          resources:
+            requests:
+              memory: 64Mi
           livenessProbe:
             httpGet:
               path: /debug/healthz
