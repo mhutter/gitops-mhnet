@@ -10,6 +10,10 @@ spec:
 
   storage:
     size: 10Gi
+  resources:
+    requests:
+      cpu: 100m
+      memory: 128Mi
   monitoring:
     enablePodMonitor: true
 

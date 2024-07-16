@@ -20,6 +20,12 @@ spec:
         # https://github.com/prometheus-community/helm-charts/blob/main/charts/kube-prometheus-stack/values.yaml
         # https://github.com/grafana/helm-charts/blob/main/charts/grafana/values.yaml
         valuesObject:
+          alertmanager:
+            alertmanagerSpec:
+              resources:
+                requests:
+                  memory: 32Mi
+
           grafana:
             # Use admin credentials from existing secret
             adminUser: null
@@ -67,10 +73,15 @@ spec:
               type: sts
               accessModes: ["ReadWriteOnce"]
               size: 1Gi
+            # Grafana Monitoring
             serviceMonitor:
               # Unset stupid scrapeTimeout (they default it to 30s, which is
               # incompatible with our scrapeInterval of 15s)
               scrapeTimeout: ""
+            # Grafana Resources
+            resources:
+              requests:
+                memory: 256Mi
 
           kubeEtcd:
             # no etcd on k3s
@@ -99,6 +110,11 @@ spec:
               ruleSelectorNilUsesHelmValues: false
               scrapeConfigSelectorNilUsesHelmValues: false
               serviceMonitorSelectorNilUsesHelmValues: false
+
+              resources:
+                requests:
+                  cpu: 200m
+                  memory: 1Gi
 
               storageSpec:
                 volumeClaimTemplate:
