@@ -10,4 +10,4 @@ labels:
 
 resources:
   - namespace.yaml
-  - https://github.com/bitnami-labs/sealed-secrets/releases/download/v0.27.0/controller.yaml
+  - https://github.com/bitnami-labs/sealed-secrets/releases/download/v0.27.1/controller.yaml
