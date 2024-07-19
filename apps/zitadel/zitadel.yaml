@@ -111,7 +111,7 @@ kind: PodDisruptionBudget
 metadata:
   name: zitadel
 spec:
-  maxUnavailable: 1
+  minAvailable: 1
   selector:
     matchLabels:
       app: zitadel
