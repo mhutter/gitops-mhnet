@@ -21,7 +21,24 @@ spec:
         # https://github.com/grafana/helm-charts/blob/main/charts/grafana/values.yaml
         valuesObject:
           alertmanager:
+            config:
+              route:
+                receiver: telegram
+              receivers:
+                - name: "null"
+                - name: telegram
+                  telegram_configs:
+                    - chat_id: 27184418
+                      bot_token_file: /var/run/telegram-configs/botToken
             alertmanagerSpec:
+              volumes:
+                - name: telegram-configs
+                  secret:
+                    secretName: telegram-configs
+              volumeMounts:
+                - name: telegram-configs
+                  mountPath: /var/run/telegram-configs
+
               resources:
                 requests:
                   memory: 32Mi
