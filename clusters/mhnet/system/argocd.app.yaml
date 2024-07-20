@@ -8,7 +8,7 @@ spec:
   project: system
   destination:
     namespace: argocd
-    server: 'https://kubernetes.default.svc'
+    server: "https://kubernetes.default.svc"
   source:
     repoURL: https://github.com/mhutter/gitops-mhnet.git
     targetRevision: HEAD
@@ -21,20 +21,17 @@ spec:
   # Avoid ArgoCD going "out of sync" when hubble rotates certificates
   # see: https://docs.cilium.io/en/stable/configuration/argocd-issues/
   ignoreDifferences:
-    - group: ""
-      kind: ConfigMap
+    - kind: ConfigMap
       name: hubble-ca-cert
       jsonPointers:
         - /data/ca.crt
-    - group: ""
-      kind: Secret
+    - kind: Secret
       name: hubble-relay-client-certs
       jsonPointers:
         - /data/ca.crt
         - /data/tls.crt
         - /data/tls.key
-    - group: ""
-      kind: Secret
+    - kind: Secret
       name: hubble-server-certs
       jsonPointers:
         - /data/ca.crt
