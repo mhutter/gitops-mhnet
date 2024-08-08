@@ -9,7 +9,7 @@ labels:
       app.kubernetes.io/name: hcloud-csi
 
 resources:
-  - "https://raw.githubusercontent.com/hetznercloud/csi-driver/v2.8.0/deploy/kubernetes/hcloud-csi.yml"
+  - "https://raw.githubusercontent.com/hetznercloud/csi-driver/v2.9.0/deploy/kubernetes/hcloud-csi.yml"
   - ./hcloud.sealed-secret.json
 
 patches:
