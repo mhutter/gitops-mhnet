@@ -33,7 +33,7 @@ spec:
       enableServiceLinks: false
       containers:
         - name: zitadel
-          image: "ghcr.io/zitadel/zitadel:v2.58.2"
+          image: "ghcr.io/zitadel/zitadel:v2.58.3"
           imagePullPolicy: IfNotPresent
           args:
             - start-from-setup
