@@ -33,7 +33,7 @@ spec:
       terminationGracePeriodSeconds: 10
       containers:
         - name: vaultwarden
-          image: "docker.io/vaultwarden/server:1.31.0-alpine"
+          image: "docker.io/vaultwarden/server:1.32.0-alpine"
           env:
             - name: DOMAIN
               value: "https://pw.mhnet.app"
