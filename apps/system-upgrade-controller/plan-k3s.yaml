@@ -5,7 +5,7 @@ metadata:
   name: k3s-latest
   namespace: system-upgrade
 spec:
-  version: "v1.30.3+k3s1"
+  version: "v1.30.4+k3s1"
   concurrency: 1
   nodeSelector:
     matchExpressions:
