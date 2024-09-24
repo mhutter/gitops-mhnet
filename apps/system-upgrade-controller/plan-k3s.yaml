@@ -22,7 +22,7 @@ spec:
     force: true
     # deleteLocalData and ignoreDaemonSets default to `true`
   upgrade:
-    image: rancher/k3s-upgrade
+    image: docker.io/rancher/k3s-upgrade
 
 ---
 apiVersion: upgrade.cattle.io/v1
@@ -39,6 +39,7 @@ spec:
         operator: DoesNotExist
   serviceAccountName: system-upgrade
   prepare:
+    image: docker.io/rancher/k3s-upgrade
     # Wait for the `upgrade-cp` plan to finish before upgrading nodes
     args:
       - prepare
@@ -48,4 +49,4 @@ spec:
     force: true
     # deleteLocalData and ignoreDaemonSets default to `true`
   upgrade:
-    image: rancher/k3s-upgrade
+    image: docker.io/rancher/k3s-upgrade
