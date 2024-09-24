@@ -2,17 +2,43 @@
 apiVersion: upgrade.cattle.io/v1
 kind: Plan
 metadata:
-  name: k3s-latest
+  name: upgrade-cp
   namespace: system-upgrade
 spec:
-  version: "v1.30.5+k3s1"
+  version: "v1.31.1+k3s1"
   concurrency: 1
   nodeSelector:
     matchExpressions:
-      - key: node.kubernetes.io/instance-type
+      - key: node-role.kubernetes.io/control-plane
         operator: In
-        values: ["k3s"]
+        values: ["true"]
   serviceAccountName: system-upgrade
+  drain:
+    # Continue even if there are pods that do not declare a controller.
+    force: true
+    # deleteLocalData and ignoreDaemonSets default to `true`
+  upgrade:
+    image: rancher/k3s-upgrade
+
+---
+apiVersion: upgrade.cattle.io/v1
+kind: Plan
+metadata:
+  name: upgrade-node
+  namespace: system-upgrade
+spec:
+  version: "v1.31.1+k3s1"
+  concurrency: 1
+  nodeSelector:
+    matchExpressions:
+      - key: node-role.kubernetes.io/control-plane
+        operator: DoesNotExist
+  serviceAccountName: system-upgrade
+  prepare:
+    # Wait for the `upgrade-cp` plan to finish before upgrading nodes
+    args:
+      - prepare
+      - upgrade-cp
   drain:
     # Continue even if there are pods that do not declare a controller.
     force: true
